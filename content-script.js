@@ -1,6 +1,7 @@
 class ReleasePage {
     pageId;
     releaseType;
+    version;
     branchName;
     releasePageLink;
     implAnnouncementStart;
@@ -9,11 +10,12 @@ class ReleasePage {
     prodAnnouncement;
     prodAnnouncementComplete;
 
-    constructor(pageId, releaseType, branchName, releasePageLink) {
+    constructor(pageId, releaseType, branchName, releasePageLink, version) {
         this.pageId = pageId;
-        this.releaseType = releaseType;
-        this.branchName = branchName;
+        this.releaseType = this.mapReleaseTypes(releaseType);
+        this.branchName = this.mapBranchNames(branchName, version);
         this.releasePageLink = releasePageLink;
+        this.version = version;
 
         this.implAnnouncementStart = `@here Deploying Submissions & Feedback UI \`${this.branchName}\` to IMPL ${this.releasePageLink}`;
 
@@ -26,6 +28,28 @@ class ReleasePage {
 
         this.prodAnnouncementComplete = `@here \`${this.branchName}\` has been successfully deployed to PROD. (your emoji here)
 @Chaitanya Kodali @Lok Shrestha`;
+    }
+
+    mapReleaseTypes(releaseTypeText) {
+        switch (releaseTypeText) {
+            case 'standard release':
+                return 'standard';
+            default:
+                return releaseTypeText;
+        }
+    }
+
+    mapBranchNames(branchNameText, version) {
+        let branchName = '';
+        switch (branchNameText) {
+            case 'standard release':
+                branchName = 'release';
+                break;
+            default:
+                branchName = branchNameText;
+        }
+
+        return `${branchName}/v${version}`;
     }
 }
 
@@ -59,9 +83,9 @@ function addCopyEventListeners() {
 function collectReleasePageInformation() {
     let releaseType = document.getElementById('i_sel_fldRelCanType')?.innerText?.toLowerCase();
     let version = document.querySelectorAll('td.confluenceTd > p')[1].innerText;
-    let branchName = `${releaseType} / v${version}`;
+    let branchName = `${releaseType}`;
     let releasePageLink = document.URL;
     let pageId = document.URL.split('=')[1];
 
-    return new ReleasePage(pageId, releaseType, branchName, releasePageLink);
+    return new ReleasePage(pageId, releaseType, branchName, releasePageLink, version);
 }
