@@ -1,14 +1,17 @@
 {
-  "name": "firefox-qpp-release-page",
-  "version": "1.0.0",
-  "description": "",
-  "main": "content-script.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "prettier": "^2.8.3"
-  }
+    "name": "firefox-qpp-release-page",
+    "version": "1.0.0",
+    "description": "",
+    "main": "content-script.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "prettier": "^2.8.3"
+    },
+    "dependencies": {
+        "handlebars": "^4.7.7"
+    }
 }
