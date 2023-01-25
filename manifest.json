@@ -1,25 +1,17 @@
 {
-    "manifest_version": 2,
-    "name": "qpp-release-page",
-    "version": "1.0",
-    "description": "Scrape pertinent information from release page for deployments",
-    "permissions": [
-        "activeTab",
-        "<all_urls>",
-        "clipboardWrite"
-    ],
-    "background": {
-        "page": "background.html",
-        "persistent": false
-    },
-    "content_scripts": [
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "content-script.js"
-            ]
-        }
-    ]
+  "manifest_version": 2,
+  "name": "qpp-release-page",
+  "version": "1.0",
+  "description": "Scrape pertinent information from release page for deployments",
+  "permissions": ["activeTab", "clipboardWrite"],
+  "background": {
+    "page": "background.html",
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://confluence.cms.gov/pages/viewpage.action*"],
+      "js": ["content-script.js"]
+    }
+  ]
 }
