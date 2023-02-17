@@ -1,7 +1,7 @@
-"use strict"
+"use strict";
 
 //do not modifiy this variable value in this file.
-//templateHTML is modified from template/template.html when `npm run replace:template` script is run
+//templateHTML is modified from template/template.html when 'npm run replace:template' script is run
 const templateHTML = `<!DOCTYPE>
 <html>
 
@@ -108,21 +108,20 @@ const templateHTML = `<!DOCTYPE>
 </body>
 
 </html>
-`
+`;
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    let responseHTML = parseTemplate(message, templateHTML);
-    sendResponse(responseHTML);
+  let responseHTML = parseTemplate(message, templateHTML);
+  sendResponse(responseHTML);
 });
 
-
 function parseTemplate(model, html) {
-    let keys = Object.keys(model);
-    let parsedHTML = html;
+  let keys = Object.keys(model);
+  let parsedHTML = html;
 
-    for (let key of keys) {
-        parsedHTML = parsedHTML.replace(`\{\{${key}\}\}`, model[key]);
-    }
+  for (let key of keys) {
+    parsedHTML = parsedHTML.replace(`\{\{${key}\}\}`, model[key]);
+  }
 
-    return parsedHTML;
+  return parsedHTML;
 }
