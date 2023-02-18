@@ -43,7 +43,34 @@ const templateHTML = `<!DOCTYPE>
             </div>
         </div>
 
-        <label for="implAnnouncementStart">IMPL Announcement Start: </label>
+        <label for="branchName">Tag Version & Release Title</label>
+        <div class="input-group col-3">
+            <input id="tagVersionReleaseTitle" readonly value="{{tagVersionReleaseTitle}}" />
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="tagVersionReleaseTitleCopy">
+                    Copy
+                </button>
+            </div>
+        </div>
+
+
+        <label for="branchName">Merge to Master PR Name</label>
+        <div class="input-group">
+            <textarea id="mergeToMasterPRName" rows="5" cols="50">{{mergeToMasterPRName}}</textarea>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="mergeToMasterPRNameCopy">
+                    Copy
+                </button>
+            </div>
+        </div>
+
+        <label for="implAnnouncementStart">
+            IMPL Announcement Start(
+            <a href="https://cmsgov.slack.com/archives/qpp-deployments" target="_blank">
+                cmsgov#qpp-deployments
+            </a>
+            ):
+        </label>
         <div class="input-group">
             <textarea id="implAnnouncementStart" rows="5" cols="50">{{implAnnouncementStart}}</textarea>
             <div class="input-group-append">
@@ -53,7 +80,13 @@ const templateHTML = `<!DOCTYPE>
             </div>
         </div>
 
-        <label for="implAnnouncementProdVerification">IMPL Announcement PROD Verification: </label>
+        <label for="implAnnouncementProdVerification">
+            IMPL Announcement PROD Verification(
+            <a href="https://semanticbits.slack.com/archives/p-qpp-sfui-wi" target="_blank">
+                semanticbits#p-qpp-sfui-wi
+            </a>
+            ):
+        </label>
         <div class="input-group">
             <textarea id="implAnnouncementProdVerification" rows="5"
                 cols="50">{{implAnnouncementProdVerification}}</textarea>
@@ -64,7 +97,13 @@ const templateHTML = `<!DOCTYPE>
             </div>
         </div>
 
-        <label for="implAnnouncementProdComplete">IMPL Announcement PROD Verification Complete: </label>
+        <label for="implAnnouncementProdComplete">
+            IMPL Announcement PROD Verification Complete(
+            <a href="https://semanticbits.slack.com/archives/p-qpp-sfui-wi" target="_blank">
+                semanticbits#p-qpp-sfui-wi
+            </a>
+            ):
+        </label>
         <div class="input-group">
             <textarea id="implAnnouncementProdComplete" rows="5" cols="50">{{implAnnouncementProdComplete}}</textarea>
             <div class="input-group-append">
@@ -74,7 +113,13 @@ const templateHTML = `<!DOCTYPE>
             </div>
         </div>
 
-        <label for="prodAnnouncement">PROD Announcement: </label>
+        <label for="prodAnnouncement">
+            PROD Announcement(
+            <a href="https://cmsgov.slack.com/archives/qpp-deployments" target="_blank">
+                cmsgov#qpp-deployments
+            </a>
+            ):
+        </label>
         <div class="input-group">
             <textarea id="prodAnnouncement" rows="5" cols="50">{{prodAnnouncement}}</textarea>
             <div class="input-group-append">
@@ -84,7 +129,13 @@ const templateHTML = `<!DOCTYPE>
             </div>
         </div>
 
-        <label for="prodAnnouncementComplete">PROD Announcement Complete: </label>
+        <label for="prodAnnouncementComplete">
+            PROD Announcement Complete(
+            <a href="https://semanticbits.slack.com/archives/p-qpp-sfui-wi" target="_blank">
+                semanticbits#p-qpp-sfui-wi
+            </a>
+            ):
+        </label>
         <div class="input-group">
             <textarea id="prodAnnouncementComplete" rows="5" cols="50">{{prodAnnouncementComplete}}</textarea>
             <div class="input-group-append">
