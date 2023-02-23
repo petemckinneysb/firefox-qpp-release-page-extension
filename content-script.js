@@ -3,32 +3,40 @@ class ReleasePage {
   releaseType;
   version;
   branchName;
+  capitalizedBranchName;
   releasePageLink;
   implAnnouncementStart;
   implAnnouncementProdVerification;
   implAnnouncementProdComplete;
   prodAnnouncement;
   prodAnnouncementComplete;
+  mergeToMasterPRName;
+  tagVersionReleaseTitle;
 
-  constructor(pageId, releaseType, branchName, releasePageLink, version) {
+  constructor(pageId, releaseType, branchName, releasePageLink, version, qualityAssurance) {
     this.pageId = pageId;
     this.releaseType = this.mapReleaseTypes(releaseType);
     this.version = this.translateVersion(version);
-    this.branchName = this.mapBranchNames(branchName, this.version);
+    this.tagVersion = `v${this.version}`;
+    this.branchName = this.mapBranchNames(branchName, this.tagVersion);
     this.releasePageLink = releasePageLink;
-    console.log(this.version);
+    this.capitalizedBranchName = this.capitalizeBranchName(branchName);
 
     this.implAnnouncementStart = `@here Deploying Submissions & Feedback UI \`${this.branchName}\` to IMPL ${this.releasePageLink}`;
 
     this.implAnnouncementProdVerification = `@ui-devs Merged ${this.branchName} into master and deploying to IMPL, webhook to master has been enabled.`;
 
     this.implAnnouncementProdComplete = `@here \`${this.branchName}\` has been successfully deployed to IMPL. (your emoji here)
-@Chaitanya Kodali @Lok Shrestha`;
+@${qualityAssurance}`;
 
     this.prodAnnouncement = `@here Deploying Submissions & Feedback UI \`${this.branchName}\` to PROD ${this.releasePageLink}`;
 
     this.prodAnnouncementComplete = `@here \`${this.branchName}\` has been successfully deployed to PROD. (your emoji here)
-@Chaitanya Kodali @Lok Shrestha`;
+@${qualityAssurance}`;
+
+    this.mergeToMasterPRName = `GitFlow: ${this.capitalizedBranchName}/${this.tagVersion} - Merge to Master`
+
+    this.tagVersionReleaseTitle = this.tagVersion;
   }
 
   translateVersion(version) {
@@ -58,7 +66,11 @@ class ReleasePage {
         branchName = branchNameText;
     }
 
-    return `${branchName}/v${version}`;
+    return `${branchName}/${version}`;
+  }
+
+  capitalizeBranchName(branchNameText) {
+    return branchNameText.charAt(0).toUpperCase() + branchNameText.slice(1);
   }
 }
 
@@ -91,6 +103,14 @@ function addCopyEventListeners() {
   }
 }
 
+function collectQAName() {
+  const qualityAssuranceTitleTd = Array.from(document.querySelectorAll('td')).find((td) => {
+    return td.textContent === 'Quality Assurance';
+  });
+
+  return qualityAssuranceTitleTd.parentNode && qualityAssuranceTitleTd.parentNode.children[1].textContent;
+}
+
 function collectReleasePageInformation() {
   let releaseType = document
     .getElementById("i_sel_fldRelCanType")
@@ -99,12 +119,14 @@ function collectReleasePageInformation() {
   let branchName = `${releaseType}`;
   let releasePageLink = document.URL;
   let pageId = document.URL.split("=")[1];
+  let qualityAssurance = collectQAName();
 
   return new ReleasePage(
     pageId,
     releaseType,
     branchName,
     releasePageLink,
-    version
+    version,
+    qualityAssurance
   );
 }
